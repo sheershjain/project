@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends
-from schemas import Createuser
+from schemas import Createuser, Showuser
 from database import get_db
 from hashing import Hasher
 from sqlalchemy.orm import Session
@@ -11,7 +11,7 @@ router=APIRouter()
 async def read_users():
     return [{"message": "hello Users"}]
 
-@router.post("/users",tags=["Users"])
+@router.post("/users",tags=["Users"],response_model=Showuser)
 async def create_users(user: Createuser, db: Session=Depends(get_db)):
     user=Users(email=user.email, password=Hasher.get_password_hash(user.password))
     db.add(user)
