@@ -1,7 +1,6 @@
 from email.policy import default
 from enum import unique
-from xmlrpc.client import Boolean
-from sqlalchemy import Column, Integer, String , ForeignKey
+from sqlalchemy import Column, Integer, String , ForeignKey, Boolean
 from database import Base
 from sqlalchemy.orm import relationship
 
@@ -12,7 +11,7 @@ class Users(Base):
     id = Column(Integer,primary_key = True)
     email = Column(String,nullable= False)
     password = Column(String,nullable= False)
-
+    is_active = Column(Boolean, default=True)
     items = relationship("Items", back_populates="owner")
 
 class Items(Base):
