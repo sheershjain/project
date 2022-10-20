@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from config import setting
-
+from database import engine
 
 
 app = FastAPI(
