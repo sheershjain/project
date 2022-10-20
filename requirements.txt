@@ -1,5 +1,5 @@
-fastapi
-sqlalchemy
+fastapi[all]
+sqlalchemy[all]
 uvicorn
 python-dotenv
 psycopg2-binary
