@@ -1,8 +1,9 @@
 from fastapi import FastAPI
 from config import setting
 from database import engine
-from database import engine
 from models import Base
+from routers import users, items
+
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
@@ -11,11 +12,10 @@ app = FastAPI(
     version=setting.version,
     terms_of_service=setting.terms_of_service,
     contact=setting.contact,
-    license_info=setting.license_info
-
+    license_info=setting.license_info,
+    openapi_tags=setting.tags_metadata
 )
+app.include_router(users.router)
+app.include_router(items.router)
 
 
-@app.get("/",tags=["items"])
-async def read_items():
-    return [{"name": "Katana"}]

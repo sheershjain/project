@@ -11,7 +11,7 @@ class Users(Base):
     id = Column(Integer,primary_key = True)
     email = Column(String,nullable= False)
     password = Column(String,nullable= False)
-    is_active = Column(Boolean, default=True)
+    # is_active = Column(Boolean, default=True)
     items = relationship("Items", back_populates="owner")
 
 class Items(Base):

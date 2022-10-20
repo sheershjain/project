@@ -1,5 +1,5 @@
 from pydantic import BaseModel, EmailStr
 
-class Item(BaseModel):
-    email: str
-    password: EmailStr
+class Createuser(BaseModel):
+    email: EmailStr
+    password: str
