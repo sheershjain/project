@@ -27,17 +27,13 @@ def override_get_db():
         yield db
     finally:
         db.close()
-        
 
 
 
 app.dependency_overrides[get_db]=override_get_db
 
 def test_create_user():
-    data = {"email" : "khushi@gkmit.co" , "password" : "khushi"}
-    response = client.post("/users" , json.dumps(data))
+    data = {"title" : "TV" , "description" : "smart tv"}
+    response = client.post("/items" , json.dumps(data))
     assert response.status_code==200
-    assert response.json()["email"] == "khushi@gkmit.co"
-    assert response.json()["is_active"] == True
-
     
