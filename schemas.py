@@ -18,6 +18,7 @@ class Showuser(BaseModel):
         orm_mode=True
 
 class Showitem(BaseModel):
+    id : int
     title: str
     description : str
     date_posted : date
