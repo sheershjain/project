@@ -47,6 +47,8 @@ You will be able to:
             },
         }
     ]
+    SECRET_KEY= os.getenv("SECRET_KEY")
+    ALGORITHM = "HS256"
     
 
     
