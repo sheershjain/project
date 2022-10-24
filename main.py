@@ -3,6 +3,7 @@ from config import setting
 from database import engine
 from models import Base
 from routers import users, items , login
+from webapps.routers import items as web_items
 
 Base.metadata.create_all(bind=engine)
 
@@ -18,4 +19,5 @@ app = FastAPI(
 app.include_router(users.router)
 app.include_router(items.router)
 app.include_router(login.router)
+app.include_router(web_items.router)
 

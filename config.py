@@ -49,6 +49,8 @@ You will be able to:
     ]
     SECRET_KEY= os.getenv("SECRET_KEY")
     ALGORITHM = "HS256"
+    TEST_EMAIL="sheersh@gkmit.co"
+    TEST_PASS = "SHEERSH"
     
 
     
