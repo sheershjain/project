@@ -4,9 +4,10 @@ from database import engine
 from models import Base
 from routers import users, items , login
 from webapps.routers import items as web_items
-
+from fastapi.staticfiles import StaticFiles
 # We are using Alembic migrations
 # Base.metadata.create_all(bind=engine)
+
 
 app = FastAPI(
     title=setting.title,
@@ -17,6 +18,8 @@ app = FastAPI(
     license_info=setting.license_info,
     openapi_tags=setting.tags_metadata
 )
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
 app.include_router(users.router)
 app.include_router(items.router)
 app.include_router(login.router)
