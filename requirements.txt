@@ -11,3 +11,4 @@ pytest-cov
 python-multipart
 python-jose
 jinja2
+alembic
