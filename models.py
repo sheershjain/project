@@ -9,10 +9,9 @@ class Users(Base):
     __tablename__ =  "users"
 
     id = Column(Integer,primary_key = True)
-    email = Column(String,nullable= False)
+    email = Column(String,nullable= False,unique=True)
     password = Column(String,nullable= False)
     is_active = Column(Boolean, default=True)
-   
     items = relationship("Items", back_populates="owner")
 
 class Items(Base):
