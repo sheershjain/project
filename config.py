@@ -2,13 +2,12 @@ from sqlite3 import version
 import os
 from dotenv import load_dotenv
 
-load_dotenv(dotenv_path='.env')
-
+load_dotenv(dotenv_path=".env")
 
 
 class Settings:
-    title="GKM_IT Project"
-    description="""
+    title = "GKM_IT Project"
+    description = """
 This API helps you do awesome stuff. 🚀
 
 ## Items
@@ -22,17 +21,17 @@ You will be able to:
 * **Create users** .
 * **Read users** .
 """
-    version="0.0.1"
-    terms_of_service="http://example.com/terms/"
-    contact={
+    version = "0.0.1"
+    terms_of_service = "http://example.com/terms/"
+    contact = {
         "name": "Sheersh Jain",
         "email": "sheersh@gkmit.co",
     }
-    license_info={
+    license_info = {
         "name": "Apache 2.0",
         "url": "https://www.apache.org/licenses/LICENSE-2.0.html",
     }
-    DATABASE_URL= os.getenv("POSTGRES_URL")
+    DATABASE_URL = os.getenv("POSTGRES_URL")
     tags_metadata = [
         {
             "name": "Users",
@@ -45,14 +44,12 @@ You will be able to:
                 "description": "Items external docs",
                 "url": "https://fastapi.tiangolo.com/",
             },
-        }
+        },
     ]
-    SECRET_KEY= os.getenv("SECRET_KEY")
+    SECRET_KEY = os.getenv("SECRET_KEY")
     ALGORITHM = "HS256"
-    TEST_EMAIL="sheersh@gkmit.co"
+    TEST_EMAIL = "sheersh@gkmit.co"
     TEST_PASS = "SHEERSH"
-    
 
-    
 
-setting=Settings()
+setting = Settings()

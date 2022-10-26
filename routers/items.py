@@ -1,8 +1,8 @@
-from fastapi import APIRouter, Depends , HTTPException,status
+from fastapi import APIRouter, Depends, HTTPException, status
 from database import get_db
 from typing import List
-from schemas import CreateItem,Showitem
-from models import Items , Users
+from schemas import CreateItem, Showitem
+from models import Items, Users
 from sqlalchemy.orm import Session
 from datetime import datetime
 from fastapi.encoders import jsonable_encoder
@@ -10,12 +10,12 @@ from routers.login import oauth2_scheme
 from jose import jwt
 from config import setting
 
-router=APIRouter()
+router = APIRouter()
 
 
 # @router.post("/items",tags=["Items"], response_model=Showitem)
 # def create_items(item: CreateItem , db: Session= Depends(get_db),token:str=Depends(oauth2_scheme)):
- 
+
 #     try:
 #         payload=jwt.decode(token, 'SHEERSH', algorithms=['HS256'])
 #         username=payload.get("sub")
@@ -28,11 +28,12 @@ router=APIRouter()
 #         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,detail="Invalid credentials3")
 #     date=datetime.now().date()
 #     owner_id=user.id
-#     item=Items(**item.dict(),date_posted=date, owner_id=owner_id) 
+#     item=Items(**item.dict(),date_posted=date, owner_id=owner_id)
 #     db.add(item)
 #     db.commit()
 #     db.refresh(item)
 #     return item
+
 
 def get_user_from_token(db, token):
     try:
@@ -69,8 +70,14 @@ def create_item(
     db.refresh(item)
     return item
 
-@router.put("/items/{id}",tags=["Items"] )
-def update_items(id: int , obj: CreateItem , db: Session= Depends(get_db),token:str=Depends(oauth2_scheme)):
+
+@router.put("/items/{id}", tags=["Items"])
+def update_items(
+    id: int,
+    obj: CreateItem,
+    db: Session = Depends(get_db),
+    token: str = Depends(oauth2_scheme),
+):
     user = get_user_from_token(db, token)
     existing_item = db.query(Items).filter(Items.id == id)
     if existing_item.first() is None:
@@ -79,9 +86,10 @@ def update_items(id: int , obj: CreateItem , db: Session= Depends(get_db),token:
         # ref.update(jsonable_encoder(obj))
         existing_item.update(obj.__dict__)
         db.commit()
-        return {"message" : "Item updated successfully"}
+        return {"message": "Item updated successfully"}
     else:
         return {"message": "You are not authorized"}
+
 
 # @router.delete("/items/{id}",tags=["Items"] )
 # def delete_items(id: int , db: Session= Depends(get_db)):
@@ -91,6 +99,7 @@ def update_items(id: int , obj: CreateItem , db: Session= Depends(get_db),token:
 #     ref.delete()
 #     db.commit()
 #     return {"message" : "Item deleted successfully"}
+
 
 @router.delete("/item/delete/{id}", tags=["Items"])
 def delete_item_by_id(
@@ -108,15 +117,17 @@ def delete_item_by_id(
         return {"message": "You are not authorized"}
 
 
-@router.get("/items/all",tags=["Items"], response_model=List[Showitem])
-def read_items(db: Session= Depends(get_db)):
-    items=db.query(Items).all()
+@router.get("/items/all", tags=["Items"], response_model=List[Showitem])
+def read_items(db: Session = Depends(get_db)):
+    items = db.query(Items).all()
     return items
 
-@router.get("/items/{id}",tags=["Items"], response_model=Showitem)
-def read_item(id: int, db: Session= Depends(get_db)):
-    item=db.query(Items).filter(Items.id==id).first()
-    if not item:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,detail=f"Item with id {id} not exist")
-    return item
 
+@router.get("/items/{id}", tags=["Items"], response_model=Showitem)
+def read_item(id: int, db: Session = Depends(get_db)):
+    item = db.query(Items).filter(Items.id == id).first()
+    if not item:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail=f"Item with id {id} not exist"
+        )
+    return item
